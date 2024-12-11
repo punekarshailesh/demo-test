@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>View Employee Record</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <style>
+    body {
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .container {
+      max-width: 800px;
+      margin-top: 50px;
+      padding: 30px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      color: #fff;
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .employee-details {
+      margin-bottom: 20px;
+    }
+
+    .employee-details label {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .employee-details span {
+      font-size: 1.2rem;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      padding: 20px;
+      background-color: #333;
+      color: #fff;
+    }
+
+    footer a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: #2575fc;
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="text-center my-4">View Employee Record</h1>
+
+    <div class="employee-details">
+      <div class="form-group">
+        <label for="Age">Age:</label>
+        <span>{{ employee.Age }}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="Gender">Gender:</label>
+        <span>{{ 'Male' if employee.Gender == 1 else 'Female' }}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="DailyRate">Daily Rate:</label>
+        <span>{{ employee.DailyRate }}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="Department">Department:</label>
+        <span>{{ employee.Department }}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="DistanceFromHome">Distance from Home (in km):</label>
+        <span>{{ employee.DistanceFromHome }}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="Education">Education:</label>
+        <span>{{ employee.Education }}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="EducationField">Education Field:</label>
+        <span>{{ employee.EducationField }}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="JobRole">Job Role:</label>
+        <span>{{ employee.JobRole }}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="MaritalStatus">Marital Status:</label>
+        <span>{{ employee.MaritalStatus }}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="MonthlyIncome">Monthly Income:</label>
+        <span>{{ employee.MonthlyIncome }}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="NumCompaniesWorked">Number of Companies Worked:</label>
+        <span>{{ employee.NumCompaniesWorked }}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="OverTime">Over Time:</label>
+        <span>{{ 'Yes' if employee.OverTime == 1 else 'No' }}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="PercentSalaryHike">Percent Salary Hike:</label>
+        <span>{{ employee.PercentSalaryHike }}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="TotalWorkingYears">Total Working Years:</label>
+        <span>{{ employee.TotalWorkingYears }}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="TrainingTimesLastYear">Training Times Last Year:</label>
+        <span>{{ employee.TrainingTimesLastYear }}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="YearsAtCompany">Years at Company:</label>
+        <span>{{ employee.YearsAtCompany }}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="YearsInCurrentRole">Years in Current Role:</label>
+        <span>{{ employee.YearsInCurrentRole }}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="YearsSinceLastPromotion">Years Since Last Promotion:</label>
+        <span>{{ employee.YearsSinceLastPromotion }}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="YearsWithCurrManager">Years with Current Manager:</label>
+        <span>{{ employee.YearsWithCurrManager }}</span>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <a href="/records" class="btn btn-info">Back to Employee Records</a>
+      <a href="/edit/{{ employee.id }}" class="btn btn-warning">Edit Record</a>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

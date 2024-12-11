@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Employee Attrition Prediction</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <style>
+    body {
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 30px;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    button[type="submit"] {
+      background-color: #2575fc;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 25px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      width: 100%;
+      color: white;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #6a11cb;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Employee Attrition Prediction</h1>
+    <form method="POST" action="/predict">
+      <!-- Input for Age -->
+      <div class="form-group">
+        <label for="Age">Age:</label>
+        <input type="number" name="Age" class="form-control" id="Age" min="18" max="65" required>
+      </div>
+
+      <!-- Input for BusinessTravel -->
+      <div class="form-group">
+        <label for="BusinessTravel">Business Travel(0-2):</label>
+        <select name="BusinessTravel" class="form-control" id="BusinessTravel" required>
+          <option value="0">Non-Travel</option>
+          <option value="1">Travel Rarely</option>
+          <option value="2">Travel Frequently</option>
+        </select>
+      </div>
+
+      <!-- Input for DailyRate -->
+      <div class="form-group">
+        <label for="DailyRate">Daily Rate:</label>
+        <input type="number" name="DailyRate" class="form-control" id="DailyRate" required>
+      </div>
+
+      <!-- Input for DistanceFromHome -->
+      <div class="form-group">
+        <label for="DistanceFromHome">Distance From Home:</label>
+        <input type="number" name="DistanceFromHome" class="form-control" id="DistanceFromHome" required>
+      </div>
+
+      <!-- Input for Education -->
+      <div class="form-group">
+        <label for="Education">Education(1-5):</label>
+        <select name="Education" class="form-control" id="Education" required>
+          <option value="1">High School</option>
+          <option value="2">Associate's Degree</option>
+          <option value="3">Bachelor's Degree</option>
+          <option value="4">Master's Degree</option>
+          <option value="5">Doctorate</option>
+        </select>
+      </div>
+
+      <!-- Input for EducationField -->
+      <div class="form-group">
+        <label for="EducationField">Education Field(0-5):</label>
+        <select name="EducationField" class="form-control" id="EducationField" required>
+          <option value="0">Other</option>
+          <option value="1">Medical</option>
+          <option value="2">Life Sciences</option>
+          <option value="3">Marketing</option>
+          <option value="4">Technical</opion>
+          <option value="5">Human Resourc5s</option>
+        </select>
+      </div>
+
+      <!-- Additional Inputs -->
+      <div class="form-group">
+        <label for="EnvironmentSatisfaction">Environment Satisfaction(1-4):</label>
+        <select name="EnvironmentSatisfaction" class="form-control" id="EnvironmentSatisfaction" required>
+          <option value="1">Low</option>
+          <option value="2">Medium</option>
+          <option value="3">High</option>
+          <option value="4">Very High</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="Gender">Gender(0-1):</label>
+        <select name="Gender" class="form-control" id="Gender" required>
+          <option value="0">Female</option>
+          <option value="1">Male</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="HourlyRate">Hourly Rate:</label>
+        <input type="number" name="HourlyRate" class="form-control" id="HourlyRate" required>
+      </div>
+
+      <div class="form-group">
+        <label for="JobInvolvement">Job Involvement(1-4):</label>
+        <select name="JobInvolvement" class="form-control" id="JobInvolvement" required>
+          <option value="1">Low</option>
+          <option value="2">Medium</option>
+          <option value="3">High</option>
+          <option value="4">Very High</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="JobLevel">Job Level:</label>
+        <input type="number" name="JobLevel" class="form-control" id="JobLevel" min="1" max="5" required>
+      </div>
+
+      <div class="form-group">
+        <label for="JobRole">Job Role(0-7):</label>
+        <select name="JobRole" class="form-control" id="JobRole" required>
+          <option value="0">Research Director</option>
+          <option value="1">Manager</option>
+          <option value="2">Healthcare Representative/Manufacturing Director</option>
+          <option value="3">Research Scientist</option>
+          <option value="4">Sales Executive</option>
+          <option value="5">Human Resources</option>
+          <option value="6">Laboratory Technician</option>
+          <option value="7">Sales Representative</option>
+          <!-- <option value="2">Manufacturing Director</option> -->
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="JobSatisfaction">Job Satisfaction(1-4):</label>
+        <select name="JobSatisfaction" class="form-control" id="JobSatisfaction" required>
+          <option value="1">Low</option>
+          <option value="2">Medium</option>
+          <option value="3">High</option>
+          <option value="4">Very High</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="MaritalStatus">Marital Status(0-2):</label>
+        <select name="MaritalStatus" class="form-control" id="MaritalStatus" required>
+          <option value="0">Divorced</option>
+          <option value="1">Married</option>
+          <option value="2">Single</option>
+        </select>
+      </div>
+
+
+      <div class="form-group">
+        <label for="MonthlyIncome">Monthly Income:</label>
+        <input type="number" name="MonthlyIncome" class="form-control" id="MonthlyIncome" required>
+      </div>
+
+      <div class="form-group">
+        <label for="NumCompaniesWorked">Number of Companies Worked:</label>
+        <input type="number" name="NumCompaniesWorked" class="form-control" id="NumCompaniesWorked" required>
+      </div>
+
+      <div class="form-group">
+        <label for="OverTime">Over Time(0-1):</label>
+        <select name="OverTime" class="form-control" id="OverTime" required>
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="PercentSalaryHike">Percent Salary Hike:</label>
+        <input type="number" name="PercentSalaryHike" class="form-control" id="PercentSalaryHike" required>
+      </div>
+
+      <div class="form-group">
+        <label for="PerformanceRating">Performance Rating(0-1):</label>
+        <select name="PerformanceRating" class="form-control" id="PerformanceRating" required>
+          <option value="0">Low</option>
+          <option value="1">High</option>
+          <!-- <option value="3">Excellent</option> -->
+          <!-- <option value="4">Outstanding</option> -->
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="RelationshipSatisfaction">Relationship Satisfaction(1-4):</label>
+        <select name="RelationshipSatisfaction" class="form-control" id="RelationshipSatisfaction" required>
+          <option value="1">Low</option>
+          <option value="2">Medium</option>
+          <option value="3">High</option>
+          <option value="4">Very High</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="StockOptionLevel">Stock Option Level(0-3):</label>
+        <input type="number" name="StockOptionLevel" class="form-control" id="StockOptionLevel" min="0" max="3" required>
+      </div>
+
+      <div class="form-group">
+        <label for="TotalWorkingYears">Total Working Years:</label>
+        <input type="number" name="TotalWorkingYears" class="form-control" id="TotalWorkingYears" required>
+      </div>
+
+      <div class="form-group">
+        <label for="TrainingTimesLastYear">Training Times Last Year:</label>
+        <input type="number" name="TrainingTimesLastYear" class="form-control" id="TrainingTimesLastYear" required>
+      </div>
+
+      <div class="form-group">
+        <label for="WorkLifeBalance">Work-Life Balance(1-4):</label>
+        <select name="WorkLifeBalance" class="form-control" id="WorkLifeBalance" required>
+          <option value="1">Bad</option>
+          <option value="2">Good</option>
+          <option value="3">Better</option>
+          <option value="4">Best</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="YearsAtCompany">Years at Company:</label>
+        <input type="number" name="YearsAtCompany" class="form-control" id="YearsAtCompany" required>
+      </div>
+
+      <div class="form-group">
+        <label for="YearsInCurrentRole">Years in Current Role:</label>
+        <input type="number" name="YearsInCurrentRole" class="form-control" id="YearsInCurrentRole" required>
+      </div>
+
+      <div class="form-group">
+        <label for="YearsSinceLastPromotion">Years Since Last Promotion:</label>
+        <input type="number" name="YearsSinceLastPromotion" class="form-control" id="YearsSinceLastPromotion" required>
+      </div>
+
+      <div class="form-group">
+        <label for="YearsWithCurrManager">Years with Current Manager:</label>
+        <input type="number" name="YearsWithCurrManager" class="form-control" id="YearsWithCurrManager" required>
+      </div>
+
+
+      <div class="form-group">
+        <label for="YearsWithCurrManager">Human Resources</label>
+        <input type="number" name="YearsWithCurrManager" class="form-control" id="YearsWithCurrManager" required>
+      </div>
+      <div class="form-group">
+        <label for="YearsWithCurrManager">Research & Development</label>
+        <input type="number" name="YearsWithCurrManager" class="form-control" id="YearsWithCurrManager" required>
+      </div>
+      <div class="form-group">
+        <label for="YearsWithCurrManager">Sales</label>
+        <input type="number" name="YearsWithCurrManager" class="form-control" id="YearsWithCurrManager" required>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</body>
+
+</html>
